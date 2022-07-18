@@ -26,10 +26,15 @@ export default {
       let isMultiplicationCorrect = (this.number1 * this.number2) == this.result
       if (isMultiplicationCorrect) {
         alert('Correct')
-        // thisrefreshNumbers()
+        this.generateNewNumbers()
       } else {
         alert('Incorrect')
       }
+    },
+    generateNewNumbers(){
+      this.number1 = Math.floor(Math.random() * 100)
+      this.number2 = Math.floor(Math.random() * 100)
+      this.result = ''
     }
   }
 }
