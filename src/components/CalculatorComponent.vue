@@ -1,13 +1,31 @@
 <template>
-  <!-- <div class="hello">
-    <h1>Calculator</h1>
 
-    {{number1}} * {{number2}} =
+  <!-- <input type="radio" id="facil" value="facil" v-model="level">
+  <label for="one">Facil</label>
 
-    <input type="number" v-model="result"/>
-    <input type="button" value="responder" v-on:click.exact="calculateOnClick"/>
+  <input type="radio" id="medio" value="medio" v-model="level">
+  <label for="two">Medio</label>
 
-  </div> -->
+  <input type="radio" id="dificil" value="dificil" v-model="level">
+  <label for="two">Dificil</label>
+  {{level}} -->
+
+  <!-- <input class="option" type="radio" id="facil" value="facil" v-model="level" /> -->
+
+  <div class="options-row">
+    <div class="option">
+      <span>Fácil</span>
+    </div>
+
+    <div class="option">
+      <span>Médio</span>
+    </div>
+
+    <div class="option-selected">
+      <span>Difícil</span>
+    </div>
+  </div>
+
   <div class="container">
     <div>
       <h1>Quanto é..</h1>
@@ -16,7 +34,7 @@
         <span class="mult"> x </span>
         <span class="number-sm">{{number2}}</span>
       </div>
-      <input type="number" class="response-input" v-model="result" />
+      <input type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
       <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
     </div>
   </div>
@@ -29,13 +47,14 @@ export default {
     return {
       number1: 1,
       number2: 2,
-      result: 0
+      result: '',
+      level: 'dificil'
     }
   },
   methods: {
     calculateOnClick: function () {
       // `this` inside methods point to the Vue instance
-      let isMultiplicationCorrect = (this.number1 * this.number2) == this.result
+      let isMultiplicationCorrect = (this.number1 * this.number2) === this.result
       if (isMultiplicationCorrect) {
         alert('Correct')
         this.generateNewNumbers()
@@ -44,10 +63,27 @@ export default {
       }
     },
     generateNewNumbers(){
-      this.number1 = Math.floor(Math.random() * 100)
-      this.number2 = Math.floor(Math.random() * 100)
+      this.number1 = Math.floor(Math.random() * this.rangePerLevel1())
+      this.number2 = Math.floor(Math.random() * this.rangePerLevel2())
       this.result = ''
+    },
+    rangePerLevel1(){
+      let levels = {
+        'facil': 10,
+        'medio': 10,
+        'dificil': 100
+      }
+      return levels[this.level]
+    },
+    rangePerLevel2(){
+      let levels = {
+        'facil': 10,
+        'medio': 100,
+        'dificil': 100
+      }
+      return levels[this.level]
     }
+
   }
 }
 </script>
@@ -69,7 +105,7 @@ a {
   color: #42b983;
 }
 .container {
-  padding: 0px 30px;
+  padding: 30px;
   text-align: right;
 }
 .number-sm {
@@ -107,5 +143,26 @@ a {
   color: #fff;
   letter-spacing: 2px;
   font-size: 12px;
+}
+.options-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 30px;
+  justify-content: space-between;
+}
+.option {
+  padding: 16px;
+  font-size: 14px;
+  background: #090a0e;
+  border-radius: 10px;
+}
+
+.option-selected {
+  padding: 16px;
+  font-size: 14px;
+  background: #fdfdff;
+  border-radius: 10px;
+  color: #22252d;
+  font-weight: bold;
 }
 </style>
