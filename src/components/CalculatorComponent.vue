@@ -1,6 +1,17 @@
 <template>
   <div class="hello">
     <h1>Calculator 2</h1>
+    <input type="radio" id="facil" value="facil" v-model="level">
+    <label for="one">Facil</label>
+
+    <input type="radio" id="medio" value="medio" v-model="level">
+    <label for="two">Medio</label>
+
+    <input type="radio" id="dificil" value="dificil" v-model="level">
+    <label for="two">Dificil</label>
+    {{level}}
+    <br>
+    <span>Picked: {{ picked }}</span>
 
     {{number1}} * {{number2}} =
 
@@ -17,7 +28,8 @@ export default {
     return {
       number1: 1,
       number2: 2,
-      result: 0
+      result: '',
+      level: 'dificil'
     }
   },
   methods: {
@@ -32,10 +44,27 @@ export default {
       }
     },
     generateNewNumbers(){
-      this.number1 = Math.floor(Math.random() * 100)
-      this.number2 = Math.floor(Math.random() * 100)
+      this.number1 = Math.floor(Math.random() * this.rangePerLevel1())
+      this.number2 = Math.floor(Math.random() * this.rangePerLevel2())
       this.result = ''
+    },
+    rangePerLevel1(){
+      let levels = {
+        'facil': 10,
+        'medio': 10,
+        'dificil': 100
+      }
+      return levels[this.level]
+    },
+    rangePerLevel2(){
+      let levels = {
+        'facil': 10,
+        'medio': 100,
+        'dificil': 100
+      }
+      return levels[this.level]
     }
+
   }
 }
 </script>
