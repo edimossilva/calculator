@@ -24,12 +24,10 @@
       <input type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
       <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
 
-      <!-- <div v-if="offensive === offensives.itachi.milestone" class="offensive">
-        <span>Ofensiva do naturo! você acertou <strong>{{offensives.itachi.milestone}} vezes</strong> </span>
-        <img
-          class="meme-picture"
-          src={{offensives.itachi.img}} alt="">
-      </div> -->
+      <div v-if="this.getMilestone()" class="offensive">
+        <span>Ofensiva do {{actualOffensive.name}}! você acertou <strong> vezes</strong> </span>
+        <img v-bind:src="actualOffensive.img" class="meme-picture"  alt="">
+      </div>
     </div>
   </div>
 </template>
@@ -76,13 +74,11 @@ export default {
           img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYn3eDZQlpIWYKhbTjl2UaBKZc626TGdBCzQ&usqp=CAU'
         },
         10: {
-          name: 'Naruto',
-          img: 'https://i.pinimg.com/736x/1e/45/a2/1e45a2385a35bc798ffc07237ffaaeee.jpg'
+          name: 'Itachi',
+          img: 'http://pm1.narvii.com/6435/dfce08f0d0fdd9dc68c8f8491c679b354823c11a_00.jpg'
         }
       }
-
-      this.actualOffensive = milestones[this.offensive]
-      console.log(this.actualOffensive)
+      return this.actualOffensive = milestones[this.offensive]
     },
     rangePerLevel1(){
       let levels = {
@@ -189,5 +185,7 @@ a {
 }
 .meme-picture {
   margin-top: 8px;
+  height: 225px;
+  width: 225px;
 }
 </style>
