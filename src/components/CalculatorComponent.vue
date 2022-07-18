@@ -187,5 +187,6 @@ a {
   margin-top: 8px;
   height: 225px;
   width: 225px;
+  border-radius: 10px
 }
 </style>
