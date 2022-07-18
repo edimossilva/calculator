@@ -43,10 +43,11 @@ export default {
       // `this` inside methods point to the Vue instance
       let isMultiplicationCorrect = (this.number1 * this.number2) === this.result
       if (isMultiplicationCorrect) {
-        alert('Correct')
+        this.$toast.success(`Correct`, {duration:1500});
         this.generateNewNumbers()
       } else {
-        alert('Incorrect')
+        this.$toast.error(`Incorrect`, {duration:1500});
+        this.result = ''
       }
     },
     generateNewNumbers(){
