@@ -1,17 +1,4 @@
 <template>
-
-  <!-- <input type="radio" id="facil" value="facil" v-model="level">
-  <label for="one">Facil</label>
-
-  <input type="radio" id="medio" value="medio" v-model="level">
-  <label for="two">Medio</label>
-
-  <input type="radio" id="dificil" value="dificil" v-model="level">
-  <label for="two">Dificil</label>
-  {{level}} -->
-
-  <!-- <input class="option" type="radio" id="facil" value="facil" v-model="level" /> -->
-
   <div class="options-row">
     <div class="option">
       <span>Fácil</span>
