@@ -23,6 +23,13 @@
       </div>
       <input type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
       <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
+
+      <!-- <div v-if="offensive === offensives.itachi.milestone" class="offensive">
+        <span>Ofensiva do naturo! você acertou <strong>{{offensives.itachi.milestone}} vezes</strong> </span>
+        <img
+          class="meme-picture"
+          src={{offensives.itachi.img}} alt="">
+      </div> -->
     </div>
   </div>
 </template>
@@ -35,7 +42,9 @@ export default {
       number1: 1,
       number2: 2,
       result: '',
-      level: 'dificil'
+      level: 'dificil',
+      offensive: 10,
+      actualOffensive: null
     }
   },
   methods: {
@@ -45,6 +54,8 @@ export default {
       if (isMultiplicationCorrect) {
         alert('Correct')
         this.generateNewNumbers()
+        this.upgradeOffensive()
+        this.getMilestone()
       } else {
         alert('Incorrect')
       }
@@ -53,6 +64,24 @@ export default {
       this.number1 = Math.floor(Math.random() * this.rangePerLevel1())
       this.number2 = Math.floor(Math.random() * this.rangePerLevel2())
       this.result = ''
+    },
+    upgradeOffensive(){
+      this.offensive = this.offensive + 1
+    },
+    getMilestone(){
+      const milestones = {
+        5: {
+          name: 'Naruto',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYn3eDZQlpIWYKhbTjl2UaBKZc626TGdBCzQ&usqp=CAU'
+        },
+        10: {
+          name: 'Naruto',
+          img: 'https://i.pinimg.com/736x/1e/45/a2/1e45a2385a35bc798ffc07237ffaaeee.jpg'
+        }
+      }
+
+      this.actualOffensive = milestones[this.offensive]
+      console.log(this.actualOffensive)
     },
     rangePerLevel1(){
       let levels = {
@@ -151,5 +180,13 @@ a {
   border-radius: 10px;
   color: #22252d;
   font-weight: bold;
+}
+
+.offensive {
+  margin-top: 20px;
+  text-align: center;
+}
+.meme-picture {
+  margin-top: 8px;
 }
 </style>
