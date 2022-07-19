@@ -191,6 +191,7 @@ a {
   font-size: 14px;
   background: #090a0e;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .option-selected {
