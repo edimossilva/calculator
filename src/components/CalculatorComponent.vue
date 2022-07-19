@@ -22,12 +22,12 @@
         <span class="number-sm">{{number2}}</span>
       </div>
       <input ref="number" type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
-      <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
+      <button class="response-button" @click="calculateOnClick">RESPONDER</button>
 
-      <div v-if="this.getMilestone()" class="offensive">
-        <span>Ofensiva do {{actualOffensive.name}}! Você acertou <strong>{{offensive}} vezes</strong> </span>
+      <div v-if="this.milestone" class="offensive">
+        <span>Ofensiva do {{milestone.name}}! Você acertou <strong>{{offensive}} vezes</strong> </span>
         <br>
-        <img v-bind:src="actualOffensive.img" class="meme-picture"  alt="">
+        <img :src="milestone.img" class="meme-picture"  alt="">
       </div>
       <div v-else class="offensive">
           <span> Você acertou
@@ -48,12 +48,26 @@ export default {
       number2: 2,
       result: '',
       level: 'facil',
-      offensive: 0,
-      actualOffensive: null
+      offensive: 0
     }
   },
   mounted() {
       this.generateNewNumbers()
+  },
+  computed: {
+   milestone(){
+      const milestones = {
+        5: {
+          name: 'Naruto',
+          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYn3eDZQlpIWYKhbTjl2UaBKZc626TGdBCzQ&usqp=CAU'
+        },
+        10: {
+          name: 'Itachi',
+          img: 'http://pm1.narvii.com/6435/dfce08f0d0fdd9dc68c8f8491c679b354823c11a_00.jpg'
+        }
+      }
+      return  milestones[this.offensive]
+    }
   },
   methods: {
     calculateOnClick: function () {
@@ -63,7 +77,6 @@ export default {
         this.$toast.success(`Correct`, {duration:1500});
         this.generateNewNumbers()
         this.upgradeOffensive()
-        this.getMilestone()
       } else {
         this.offensive = 0
         this.$toast.error(`Incorrect`, {duration:1500});
@@ -79,19 +92,6 @@ export default {
     },
     upgradeOffensive(){
       this.offensive = this.offensive + 1
-    },
-    getMilestone(){
-      const milestones = {
-        5: {
-          name: 'Naruto',
-          img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYn3eDZQlpIWYKhbTjl2UaBKZc626TGdBCzQ&usqp=CAU'
-        },
-        10: {
-          name: 'Itachi',
-          img: 'http://pm1.narvii.com/6435/dfce08f0d0fdd9dc68c8f8491c679b354823c11a_00.jpg'
-        }
-      }
-      return this.actualOffensive = milestones[this.offensive]
     },
     rangePerLevel1(){
       let levels = {
