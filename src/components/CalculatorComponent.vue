@@ -1,15 +1,15 @@
 <template>
   <div class="options-row">
-    <div class="option">
-      <span>Fácil</span>
+    <div :class="['option', { 'option-selected': isLevel('facil') }]" >
+      <span v-on:click.exact="setLevel('facil')">Fácil</span>
     </div>
 
-    <div class="option">
-      <span>Médio</span>
+    <div :class="['option', { 'option-selected': isLevel('medio') }]" >
+      <span v-on:click.exact="setLevel('medio')">Medio</span>
     </div>
 
-    <div class="option-selected">
-      <span>Difícil</span>
+    <div :class="['option', { 'option-selected': isLevel('dificil') }]" >
+      <span v-on:click.exact="setLevel('dificil')">Difícil</span>
     </div>
   </div>
 
@@ -25,8 +25,14 @@
       <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
 
       <div v-if="this.getMilestone()" class="offensive">
-        <span>Ofensiva do {{actualOffensive.name}}! você acertou <strong> vezes</strong> </span>
+        <span>Ofensiva do {{actualOffensive.name}}! você acertou <strong>{{offensive}} vezes</strong> </span>
         <img v-bind:src="actualOffensive.img" class="meme-picture"  alt="">
+      </div>
+      <div v-else class="offensive">
+          <span> Você acertou
+            <strong v-if="this.offensive===1"> {{offensive}} vez</strong>
+            <strong v-else> {{offensive}} vezes</strong>
+          </span>
       </div>
     </div>
   </div>
@@ -40,10 +46,13 @@ export default {
       number1: 1,
       number2: 2,
       result: '',
-      level: 'dificil',
-      offensive: 10,
+      level: 'facil',
+      offensive: 0,
       actualOffensive: null
     }
+  },
+  mounted() {
+      this.generateNewNumbers()
   },
   methods: {
     calculateOnClick: function () {
@@ -55,6 +64,7 @@ export default {
         this.upgradeOffensive()
         this.getMilestone()
       } else {
+        this.offensive = 0
         this.$toast.error(`Incorrect`, {duration:1500});
         this.result = ''
       }
@@ -95,8 +105,18 @@ export default {
         'dificil': 100
       }
       return levels[this.level]
-    }
+    },
+    setLevel(level){
+      if (this.level === level) return
 
+      this.generateNewNumbers()
+      this.level = level
+      this.offensive=0
+
+    },
+    isLevel(level){
+      return this.level === level
+    }
   }
 }
 </script>
