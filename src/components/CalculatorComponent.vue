@@ -21,11 +21,12 @@
         <span class="mult"> x </span>
         <span class="number-sm">{{number2}}</span>
       </div>
-      <input type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
+      <input ref="number" type="number" placeholder="Digite aqui" class="response-input" v-model="result" />
       <button class="response-button" v-on:click.exact="calculateOnClick">RESPONDER</button>
 
       <div v-if="this.getMilestone()" class="offensive">
-        <span>Ofensiva do {{actualOffensive.name}}! você acertou <strong>{{offensive}} vezes</strong> </span>
+        <span>Ofensiva do {{actualOffensive.name}}! Você acertou <strong>{{offensive}} vezes</strong> </span>
+        <br>
         <img v-bind:src="actualOffensive.img" class="meme-picture"  alt="">
       </div>
       <div v-else class="offensive">
@@ -68,6 +69,8 @@ export default {
         this.$toast.error(`Incorrect`, {duration:1500});
         this.result = ''
       }
+
+      this.$refs.number.focus()
     },
     generateNewNumbers(){
       this.number1 = Math.floor(Math.random() * this.rangePerLevel1())
