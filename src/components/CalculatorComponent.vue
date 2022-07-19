@@ -109,8 +109,8 @@ export default {
     setLevel(level){
       if (this.level === level) return
 
-      this.generateNewNumbers()
       this.level = level
+      this.generateNewNumbers()
       this.offensive=0
 
     },
